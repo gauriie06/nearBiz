@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+<meta name="theme-color" content="#10b981" />
+<title>nearBiz — Discover Local. Support Small. Shop Nearby.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  /* ---------- Design Tokens ---------- */
+  :root{
+    --primary:#10b981;
+    --primary-dark:#059669;
+    --primary-soft:#d1fae5;
+    --accent:#f59e0b;
+    --accent-soft:#fef3c7;
+    --ink:#0f172a;
+    --ink-2:#334155;
+    --muted:#64748b;
+    --line:#e2e8f0;
+    --bg:#ffffff;
+    --bg-soft:#f8fafc;
+    --bg-2:#f1f5f9;
+    --shadow-sm:0 1px 2px rgba(15,23,42,.05);
+    --shadow:0 6px 20px rgba(15,23,42,.08);
+    --shadow-lg:0 20px 40px rgba(15,23,42,.12);
+    --radius:14px;
+    --radius-lg:20px;
+    --radius-xl:28px;
+    --maxw:1200px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.55;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block}
+  a{color:inherit;text-decoration:none}
+  button{font-family:inherit;cursor:pointer;border:none;background:none}
+  h1,h2,h3,h4{font-family:'Plus Jakarta Sans','Inter',sans-serif;line-height:1.2;color:var(--ink);letter-spacing:-.01em}
+  h1{font-size:clamp(2rem,5vw,3.5rem);font-weight:800}
+  h2{font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:700}
+  h3{font-size:clamp(1.1rem,2vw,1.35rem);font-weight:700}
+  p{color:var(--ink-2)}
+  .container{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  section{padding:80px 0}
+  .eyebrow{
+    display:inline-block;font-size:.8rem;font-weight:600;letter-spacing:.08em;
+    text-transform:uppercase;color:var(--primary-dark);background:var(--primary-soft);
+    padding:6px 12px;border-radius:999px;margin-bottom:14px;
+  }
+  .section-head{text-align:center;max-width:720px;margin:0 auto 48px}
+  .section-head p{margin-top:12px;color:var(--muted);font-size:1.05rem}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:13px 22px;border-radius:12px;font-weight:600;font-size:.95rem;
+    transition:transform .2s var(--ease),box-shadow .2s var(--ease),background .2s;
+    white-space:nowrap;
+  }
+  .btn-primary{background:var(--primary);color:#fff;box-shadow:0 6px 16px rgba(16,185,129,.3)}
+  .btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 10px 22px rgba(16,185,129,.35)}
+  .btn-outline{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .btn-outline:hover{border-color:var(--primary);color:var(--primary-dark);transform:translateY(-2px)}
+  .btn-ghost{color:var(--ink-2);padding:10px 14px}
+  .btn-ghost:hover{color:var(--primary-dark)}
+  .btn-dark{background:var(--ink);color:#fff}
+  .btn-dark:hover{background:#1e293b;transform:translateY(-2px)}
+
+  /* ---------- Navbar ---------- */
+  .nav{
+    position:sticky;top:0;z-index:50;background:rgba(255,255,255,.85);
+    backdrop-filter:saturate(180%) blur(14px);
+    -webkit-backdrop-filter:saturate(180%) blur(14px);
+    border-bottom:1px solid rgba(226,232,240,.6);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .logo{display:flex;align-items:center;gap:10px;font-family:'Plus Jakarta Sans';font-weight:800;font-size:1.3rem}
+  .logo-mark{
+    width:36px;height:36px;border-radius:10px;
+    background:linear-gradient(135deg,var(--primary),#34d399);
+    display:grid;place-items:center;color:#fff;box-shadow:0 6px 14px rgba(16,185,129,.35);
+  }
+  .nav-links{display:flex;align-items:center;gap:6px}
+  .nav-links a{
+    padding:10px 14px;border-radius:10px;font-weight:500;color:var(--ink-2);
+    font-size:.95rem;transition:all .2s;
+  }
+  .nav-links a:hover{color:var(--primary-dark);background:var(--bg-soft)}
+  .nav-cta{display:flex;align-items:center;gap:10px}
+  .hamburger{
+    display:none;width:44px;height:44px;border-radius:10px;
+    align-items:center;justify-content:center;color:var(--ink);
+  }
+  .hamburger:hover{background:var(--bg-soft)}
+  .hamburger svg{width:22px;height:22px}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;padding:80px 0 60px;overflow:hidden;
+    background:
+      radial-gradient(1000px 500px at 85% -10%,rgba(16,185,129,.12),transparent 60%),
+      radial-gradient(800px 400px at -10% 20%,rgba(245,158,11,.10),transparent 60%),
+      linear-gradient(180deg,#ffffff,#f8fafc);
+  }
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+  .hero h1 span{
+    background:linear-gradient(90deg,var(--primary),#34d399);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero-lead{margin:20px 0 28px;font-size:1.12rem;color:var(--ink-2);max-width:560px}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+  .hero-search{
+    display:flex;align-items:center;background:#fff;border:1.5px solid var(--line);
+    border-radius:16px;padding:8px;box-shadow:var(--shadow);max-width:560px;
+  }
+  .hero-search input{
+    flex:1;border:none;outline:none;padding:12px 14px;font-size:1rem;
+    background:transparent;color:var(--ink);min-width:0;
+  }
+  .hero-search input::placeholder{color:var(--muted)}
+  .hero-search .btn{padding:12px 18px}
+  .hero-stats{display:flex;gap:28px;margin-top:36px;flex-wrap:wrap}
+  .hero-stat strong{display:block;font-size:1.6rem;font-family:'Plus Jakarta Sans';color:var(--ink)}
+  .hero-stat span{color:var(--muted);font-size:.9rem}
+
+  .hero-visual{position:relative;min-height:420px}
+  .hero-card{
+    position:absolute;background:#fff;border-radius:var(--radius-lg);
+    box-shadow:var(--shadow-lg);padding:18px;border:1px solid var(--line);
+    animation:float 6s ease-in-out infinite;
+  }
+  .hero-card.c1{top:0;left:0;width:62%;animation-delay:0s}
+  .hero-card.c2{top:38%;right:0;width:58%;animation-delay:-2s}
+  .hero-card.c3{bottom:0;left:8%;width:55%;animation-delay:-4s}
+  .hero-card .hc-top{display:flex;gap:12px;align-items:center;margin-bottom:10px}
+  .hc-avatar{
+    width:44px;height:44px;border-radius:12px;display:grid;place-items:center;
+    color:#fff;font-weight:700;font-size:1rem;flex-shrink:0;
+  }
+  .hc-name{font-weight:700;font-size:.95rem}
+  .hc-sub{font-size:.8rem;color:var(--muted)}
+  .hc-tag{
+    display:inline-block;font-size:.72rem;background:var(--primary-soft);
+    color:var(--primary-dark);padding:3px 8px;border-radius:999px;font-weight:600;margin-top:4px;
+  }
+  .hc-tag.amber{background:var(--accent-soft);color:#b45309}
+  .hc-row{display:flex;justify-content:space-between;font-size:.82rem;color:var(--muted);margin-top:6px}
+  .hc-row strong{color:var(--ink)}
+  @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+  /* ---------- Explore / Business Cards ---------- */
+  .explore{background:var(--bg-soft)}
+  .filter-bar{
+    display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:32px;
+  }
+  .chip{
+    padding:9px 16px;border-radius:999px;background:#fff;border:1.5px solid var(--line);
+    font-size:.9rem;font-weight:500;color:var(--ink-2);transition:all .2s;
+  }
+  .chip:hover{border-color:var(--primary);color:var(--primary-dark)}
+  .chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+  .biz-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px;
+  }
+  .biz-card{
+    background:#fff;border-radius:var(--radius-lg);overflow:hidden;
+    border:1px solid var(--line);transition:transform .25s var(--ease),box-shadow .25s var(--ease);
+    display:flex;flex-direction:column;cursor:pointer;
+  }
+  .biz-card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+  .biz-img{
+    height:160px;position:relative;overflow:hidden;
+    display:grid;place-items:center;color:#fff;font-size:3rem;
+  }
+  .biz-img::after{
+    content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.15));
+  }
+  .biz-badge{
+    position:absolute;top:12px;left:12px;z-index:2;
+    background:rgba(255,255,255,.95);color:var(--ink);
+    padding:5px 10px;border-radius:999px;font-size:.75rem;font-weight:600;
+    display:flex;align-items:center;gap:5px;backdrop-filter:blur(6px);
+  }
+  .biz-badge .dot{width:7px;height:7px;border-radius:50%;background:var(--primary)}
+  .biz-badge.closed .dot{background:#ef4444}
+  .biz-body{padding:18px;display:flex;flex-direction:column;flex:1;gap:10px}
+  .biz-cat{font-size:.78rem;color:var(--primary-dark);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+  .biz-name{font-size:1.1rem;font-weight:700}
+  .biz-desc{font-size:.88rem;color:var(--muted);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .biz-meta{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:12px;border-top:1px dashed var(--line);font-size:.85rem;color:var(--muted)}
+  .biz-meta .rating{color:var(--ink);font-weight:600;display:flex;align-items:center;gap:4px}
+  .biz-meta .rating svg{color:var(--accent)}
+
+  /* ---------- How It Works ---------- */
+  .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:24px}
+  .step{
+    background:#fff;border:1px solid var(--line);border-radius:var(--radius-lg);
+    padding:28px;position:relative;transition:transform .25s var(--ease),box-shadow .25s;
+  }
+  .step:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .step-num{
+    width:44px;height:44px;border-radius:12px;background:var(--primary-soft);
+    color:var(--primary-dark);display:grid;place-items:center;font-weight:800;
+    font-family:'Plus Jakarta Sans';font-size:1.1rem;margin-bottom:16px;
+  }
+  .step h3{margin-bottom:8px}
+  .step p{font-size:.95rem;color:var(--muted)}
+
+  /* ---------- Benefits ---------- */
+  .benefits{background:linear-gradient(180deg,#fff,var(--bg-soft))}
+  .benefits-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+  .benefit-list{display:flex;flex-direction:column;gap:18px}
+  .benefit{
+    display:flex;gap:16px;padding:18px;border-radius:var(--radius);
+    background:#fff;border:1px solid var(--line);transition:all .2s;
+  }
+  .benefit:hover{border-color:var(--primary);transform:translateX(4px)}
+  .benefit-icon{
+    flex-shrink:0;width:48px;height:48px;border-radius:12px;
+    background:var(--primary-soft);color:var(--primary-dark);
+    display:grid;place-items:center;
+  }
+  .benefit-icon svg{width:22px;height:22px}
+  .benefit h4{font-family:'Plus Jakarta Sans';font-size:1.05rem;margin-bottom:4px}
+  .benefit p{font-size:.92rem;color:var(--muted)}
+  .benefits-visual{
+    background:linear-gradient(135deg,var(--primary),#34d399);
+    border-radius:var(--radius-xl);padding:40px;color:#fff;position:relative;overflow:hidden;
+  }
+  .benefits-visual::before{
+    content:"";position:absolute;width:200px;height:200px;border-radius:50%;
+    background:rgba(255,255,255,.1);top:-60px;right:-60px;
+  }
+  .benefits-visual::after{
+    content:"";position:absolute;width:140px;height:140px;border-radius:50%;
+    background:rgba(255,255,255,.08);bottom:-40px;left:-40px;
+  }
+  .bv-stat{position:relative;z-index:1;margin-bottom:24px}
+  .bv-stat:last-child{margin-bottom:0}
+  .bv-stat strong{display:block;font-family:'Plus Jakarta Sans';font-size:2.4rem;font-weight:800}
+  .bv-stat span{opacity:.9;font-size:.95rem}
+
+  /* ---------- Delivery Partner ---------- */
+  .delivery{
+    background:var(--ink);color:#fff;border-radius:var(--radius-xl);
+    padding:60px;margin:40px auto;max-width:var(--maxw);position:relative;overflow:hidden;
+  }
+  .delivery::before{
+    content:"";position:absolute;width:400px;height:400px;border-radius:50%;
+    background:radial-gradient(circle,rgba(16,185,129,.3),transparent 70%);
+    top:-150px;right:-100px;
+  }
+  .delivery-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;position:relative;z-index:1}
+  .delivery h2{color:#fff}
+  .delivery p{color:rgba(255,255,255,.75);margin:16px 0 28px;font-size:1.05rem}
+  .delivery-features{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
+  .df{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;color:rgba(255,255,255,.85)}
+  .df svg{flex-shrink:0;color:var(--primary);margin-top:2px}
+  .delivery-card{
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+    border-radius:var(--radius-lg);padding:28px;backdrop-filter:blur(10px);
+  }
+  .delivery-card h3{color:#fff;margin-bottom:16px}
+  .earnings{display:flex;align-items:baseline;gap:8px;margin-bottom:20px}
+  .earnings strong{font-family:'Plus Jakarta Sans';font-size:2.2rem;color:var(--primary)}
+  .earnings span{color:rgba(255,255,255,.6);font-size:.9rem}
+  .mini-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .mini-list li{display:flex;gap:10px;align-items:center;font-size:.9rem;color:rgba(255,255,255,.85)}
+  .mini-list li::before{
+    content:"";width:6px;height:6px;border-radius:50%;background:var(--primary);flex-shrink:0;
+  }
+
+  /* ---------- Footer ---------- */
+  footer{background:#0b1220;color:rgba(255,255,255,.75);padding:60px 0 30px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+  .foot-brand p{margin:14px 0;font-size:.92rem;max-width:320px}
+  .foot-col h5{color:#fff;font-family:'Plus Jakarta Sans';font-size:1rem;margin-bottom:16px}
+  .foot-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+  .foot-col a{font-size:.92rem;transition:color .2s}
+  .foot-col a:hover{color:var(--primary)}
+  .socials{display:flex;gap:10px;margin-top:16px}
+  .socials a{
+    width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,.06);
+    display:grid;place-items:center;transition:all .2s;
+  }
+  .socials a:hover{background:var(--primary);color:#fff}
+  .foot-bottom{
+    border-top:1px solid rgba(255,255,255,.08);padding-top:24px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;
+    font-size:.85rem;color:rgba(255,255,255,.5);
+  }
+
+  /* ---------- Modal ---------- */
+  .modal-backdrop{
+    position:fixed;inset:0;background:rgba(15,23,42,.55);backdrop-filter:blur(6px);
+    display:none;align-items:center;justify-content:center;z-index:100;padding:20px;
+    animation:fadeIn .2s ease;
+  }
+  .modal-backdrop.active{display:flex}
+  .modal{
+    background:#fff;border-radius:var(--radius-xl);max-width:900px;width:100%;
+    max-height:90vh;overflow-y:auto;position:relative;animation:slideUp .3s var(--ease);
+  }
+  .modal-close{
+    position:absolute;top:16px;right:16px;width:40px;height:40px;border-radius:50%;
+    background:#fff;border:1px solid var(--line);display:grid;place-items:center;z-index:2;
+  }
+  .modal-close:hover{background:var(--bg-soft)}
+  .biz-hero{
+    height:220px;position:relative;display:grid;place-items:center;color:#fff;font-size:5rem;
+  }
+  .biz-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(0,0,0,.5))}
+  .biz-hero-info{position:absolute;bottom:20px;left:24px;right:24px;z-index:1;color:#fff}
+  .biz-hero-info h2{color:#fff;font-size:1.8rem}
+  .biz-hero-info p{color:rgba(255,255,255,.9);font-size:.95rem}
+  .biz-content{padding:28px}
+  .biz-tabs{display:flex;gap:8px;border-bottom:1px solid var(--line);margin-bottom:20px;overflow-x:auto}
+  .biz-tab{
+    padding:10px 16px;font-weight:600;color:var(--muted);border-bottom:2px solid transparent;
+    white-space:nowrap;font-size:.92rem;
+  }
+  .biz-tab.active{color:var(--primary-dark);border-color:var(--primary)}
+  .products{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+  .product{
+    border:1px solid var(--line);border-radius:var(--radius);padding:14px;
+    transition:all .2s;background:#fff;
+  }
+  .product:hover{border-color:var(--primary);box-shadow:var(--shadow-sm)}
+  .product-img{
+    height:110px;border-radius:10px;margin-bottom:10px;
+    display:grid;place-items:center;color:#fff;font-size:2rem;
+  }
+  .product h4{font-family:'Inter';font-size:.95rem;margin-bottom:4px}
+  .product .price{color:var(--primary-dark);font-weight:700;font-size:1rem;margin-bottom:6px}
+  .product .stock{font-size:.78rem;color:var(--muted);margin-bottom:10px}
+  .product .stock.low{color:#b45309}
+  .product .stock.out{color:#ef4444}
+  .product .btn{width:100%;padding:8px;font-size:.85rem}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .info-box{background:var(--bg-soft);padding:16px;border-radius:var(--radius)}
+  .info-box h5{font-family:'Plus Jakarta Sans';margin-bottom:8px;font-size:.95rem}
+  .info-box p{font-size:.88rem;color:var(--muted);margin:0}
+  .info-box p + p{margin-top:4px}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ---------- Auth Modal ---------- */
+  .auth-modal{max-width:440px;padding:40px}
+  .auth-tabs{display:flex;background:var(--bg-soft);padding:4px;border-radius:12px;margin-bottom:24px}
+  .auth-tab{flex:1;padding:10px;text-align:center;border-radius:8px;font-weight:600;color:var(--muted);font-size:.92rem;transition:all .2s}
+  .auth-tab.active{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
+  .auth-form{display:flex;flex-direction:column;gap:14px}
+  .field label{display:block;font-size:.85rem;font-weight:600;margin-bottom:6px;color:var(--ink-2)}
+  .field input,.field select{
+    width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:10px;
+    font-size:.95rem;font-family:inherit;transition:border-color .2s;background:#fff;
+  }
+  .field input:focus,.field select:focus{outline:none;border-color:var(--primary)}
+  .auth-form .btn{margin-top:8px}
+  .auth-divider{text-align:center;color:var(--muted);font-size:.85rem;margin:10px 0;position:relative}
+  .auth-divider::before,.auth-divider::after{
+    content:"";position:absolute;top:50%;width:40%;height:1px;background:var(--line);
+  }
+  .auth-divider::before{left:0}
+  .auth-divider::after{right:0}
+  .auth-switch{text-align:center;margin-top:16px;font-size:.88rem;color:var(--muted)}
+  .auth-switch a{color:var(--primary-dark);font-weight:600;cursor:pointer}
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);
+    background:var(--ink);color:#fff;padding:14px 22px;border-radius:12px;
+    font-size:.92rem;font-weight:500;z-index:200;box-shadow:var(--shadow-lg);
+    opacity:0;transition:all .3s var(--ease);display:flex;align-items:center;gap:10px;
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+  .toast svg{color:var(--primary)}
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 960px){
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .hero-visual{min-height:340px;max-width:500px;margin:0 auto;width:100%}
+    .benefits-grid{grid-template-columns:1fr;gap:40px}
+    .delivery-grid{grid-template-columns:1fr;gap:30px}
+    .delivery{padding:40px 28px;margin:30px 16px}
+    .foot-grid{grid-template-columns:1fr 1fr;gap:30px}
+  }
+
+  @media (max-width: 768px){
+    section{padding:60px 0}
+    .container{padding:0 18px}
+    .nav-inner{height:64px}
+    .nav-links{
+      position:fixed;top:64px;left:0;right:0;
+      background:#fff;flex-direction:column;align-items:stretch;
+      padding:16px;gap:4px;border-bottom:1px solid var(--line);
+      transform:translateY(-120%);transition:transform .3s var(--ease);
+      box-shadow:var(--shadow);
+    }
+    .nav-links.open{transform:translateY(0)}
+    .nav-links a{padding:14px 16px;border-radius:10px;font-size:1rem}
+    .nav-links a:hover{background:var(--bg-soft)}
+    .nav-cta .btn-ghost,.nav-cta .btn-primary{display:none}
+    .hamburger{display:flex}
+    .hero{padding:50px 0 40px}
+    .hero-lead{font-size:1rem}
+    .hero-search{flex-direction:column;align-items:stretch;gap:8px;padding:10px}
+    .hero-search input{padding:12px}
+    .hero-search .btn{width:100%;padding:14px}
+    .hero-ctas{flex-direction:column}
+    .hero-ctas .btn{width:100%;justify-content:center}
+    .hero-stats{gap:20px;justify-content:space-between}
+    .hero-stat strong{font-size:1.3rem}
+    .hero-visual{min-height:300px}
+    .hero-card{padding:14px}
+    .hero-card.c1{width:70%}
+    .hero-card.c2{width:62%}
+    .hero-card.c3{width:65%}
+    .biz-grid{grid-template-columns:1fr;gap:16px}
+    .how-grid{grid-template-columns:1fr;gap:16px}
+    .delivery{padding:36px 22px;margin:24px 12px;border-radius:20px}
+    .delivery-features{grid-template-columns:1fr;gap:12px}
+    .foot-grid{grid-template-columns:1fr;gap:28px}
+    .foot-bottom{flex-direction:column;text-align:center}
+    .info-grid{grid-template-columns:1fr}
+    .products{grid-template-columns:1fr 1fr;gap:12px}
+    .biz-hero{height:180px}
+    .biz-hero-info{bottom:14px;left:18px;right:18px}
+    .biz-hero-info h2{font-size:1.4rem}
+    .biz-content{padding:20px}
+    .auth-modal{padding:28px 22px}
+    .modal{border-radius:20px}
+    .benefits-visual{padding:30px}
+    .bv-stat strong{font-size:1.9rem}
+  }
+
+  @media (max-width: 420px){
+    .container{padding:0 16px}
+    h1{font-size:1.9rem}
+    h2{font-size:1.5rem}
+    .hero-card.c1,.hero-card.c2,.hero-card.c3{width:72%}
+    .hc-avatar{width:38px;height:38px;font-size:.9rem}
+    .hc-name{font-size:.88rem}
+    .products{grid-template-columns:1fr}
+    .filter-bar{justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;padding-bottom:6px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .filter-bar::-webkit-scrollbar{display:none}
+    .chip{flex-shrink:0}
+    .biz-meta{font-size:.8rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAVBAR ============ -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a href="#home" class="logo" aria-label="nearBiz home">
+      <span class="logo-mark">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </span>
+      nearBiz
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#explore">Explore</a>
+      <a href="#how">How It Works</a>
+      <a href="#owners">For Business</a>
+      <a href="#delivery">Delivery</a>
+      <a href="#about">About</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="btn btn-ghost" onclick="openAuth('login')">Log in</button>
+      <button class="btn btn-primary" onclick="openAuth('signup')">Sign up</button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="home">
+  <div class="container hero-grid">
+    <div>
+      <span class="eyebrow">🌱 Your neighborhood, reconnected</span>
+      <h1>Discover Local.<br/>Support Small. <span>Shop Nearby.</span></h1>
+      <p class="hero-lead">Find the bakeries, tailors, flower shops and hardware stores around the corner. Pre-order what you need, pick it up, or get it delivered by a neighbor.</p>
+
+      <form class="hero-search" onsubmit="handleSearch(event)">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" style="margin-left:8px;flex-shrink:0"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="searchInput" placeholder="Search for businesses, products or services..." aria-label="Search"/>
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <div class="hero-ctas">
+        <a href="#explore" class="btn btn-primary">
+          Explore Businesses
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <button class="btn btn-outline" onclick="openAuth('owner')">List Your Business</button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat"><strong>1,240+</strong><span>Local businesses</span></div>
+        <div class="hero-stat"><strong>18,000+</strong><span>Happy customers</span></div>
+        <div class="hero-stat"><strong>320+</strong><span>Delivery partners</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual" aria-hidden="true">
+      <div class="hero-card c1">
+        <div class="hc-top">
+          <div class="hc-avatar" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">🥐</div>
+          <div>
+            <div class="hc-name">Sunrise Bakery</div>
+            <div class="hc-sub">0.4 km away · Open now</div>
+            <span class="hc-tag">Fresh today</span>
+          </div>
+        </div>
+        <div class="hc-row"><span>Sourdough loaf</span><strong>$6.50</strong></div>
+      </div>
+      <div class="hero-card c2">
+        <div class="hc-top">
+          <div class="hc-avatar" style="background:linear-gradient(135deg,#ec4899,#f472b6)">🌷</div>
+          <div>
+            <div class="hc-name">Petal & Stem</div>
+            <div class="hc-sub">0.8 km away · Pre-order</div>
+            <span class="hc-tag amber">Seasonal</span>
+          </div>
+        </div>
+        <div class="hc-row"><span>Weekend bouquet</span><strong>$28</strong></div>
+      </div>
+      <div class="hero-card c3">
+        <div class="hc-top">
+          <div class="hc-avatar" style="background:linear-gradient(135deg,#10b981,#34d399)">🔧</div>
+          <div>
+            <div class="hc-name">Ravi's Hardware</div>
+            <div class="hc-sub">1.2 km away · In stock</div>
+            <span class="hc-tag">Family-owned</span>
+          </div>
+        </div>
+        <div class="hc-row"><span>Toolbox set</span><strong>$42</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXPLORE ============ -->
+<section class="explore" id="explore">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">📍 Explore</span>
+      <h2>Discover local businesses near you</h2>
+      <p>From corner cafés to family-run tailors — support the shops that make your neighborhood feel like home.</p>
+    </div>
+
+    <div class="filter-bar" id="filterBar">
+      <button class="chip active" data-cat="all">All</button>
+      <button class="chip" data-cat="Food">Food & Bakery</button>
+      <button class="chip" data-cat="Flowers">Flowers</button>
+      <button class="chip" data-cat="Fashion">Fashion</button>
+      <button class="chip" data-cat="Hardware">Hardware</button>
+      <button class="chip" data-cat="Books">Books</button>
+      <button class="chip" data-cat="Cafe">Café</button>
+    </div>
+
+    <div class="biz-grid" id="bizGrid"></div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section id="how">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">✨ How It Works</span>
+      <h2>Simple, local, human</h2>
+      <p>Whether you're shopping, selling, or delivering — nearBiz keeps everything close to home.</p>
+    </div>
+    <div class="how-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Discover nearby</h3>
+        <p>Browse real local businesses around you. See what's in stock, what's fresh today, and what's open right now.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Pre-order easily</h3>
+        <p>Reserve products in advance so they're ready when you are. No waiting, no disappointment.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Pick up or deliver</h3>
+        <p>Visit the store yourself, or let a local delivery partner bring it to your door — fast and friendly.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Support your community</h3>
+        <p>Every order keeps money in the neighborhood and helps small businesses grow and thrive.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BENEFITS FOR OWNERS ============ -->
+<section class="benefits" id="owners">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">🏪 For Business Owners</span>
+      <h2>Grow your business, your way</h2>
+      <p>Get discovered by customers right around the corner — without the fees and complexity of big platforms.</p>
+    </div>
+    <div class="benefits-grid">
+      <div class="benefit-list">
+        <div class="benefit">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div><h4>Get found by neighbors</h4><p>Show up in local searches and appear on the map to customers within walking distance.</p></div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div><h4>Manage pre-orders</h4><p>Let customers reserve products in advance. Know what's needed before you even open.</p></div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 3h5v5"/><path d="M8 3H3v5"/><path d="M21 3l-7 7"/><path d="M3 3l7 7"/><path d="M16 21h5v-5"/><path d="M8 21H3v-5"/><path d="M21 21l-7-7"/><path d="M3 21l7-7"/></svg>
+          </div>
+          <div><h4>Zero hidden fees</h4><p>Keep what you earn. No commissions eating into your margins — just a simple monthly plan.</p></div>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div><h4>Local delivery network</h4><p>Connected delivery partners in your area handle the last mile — so you can focus on what you do best.</p></div>
+        </div>
+      </div>
+
+      <div class="benefits-visual">
+        <div class="bv-stat"><strong>+68%</strong><span>Average increase in foot traffic for listed businesses</span></div>
+        <div class="bv-stat"><strong>3.2x</strong><span>More pre-orders compared to walk-in only</span></div>
+        <div class="bv-stat"><strong>15 min</strong><span>Set up your profile and start selling today</span></div>
+        <button class="btn btn-dark" style="margin-top:24px;background:#fff;color:var(--ink)" onclick="openAuth('owner')">
+          List Your Business Free
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DELIVERY PARTNER ============ -->
+<section id="delivery" style="padding-top:20px">
+  <div class="delivery">
+    <div class="delivery-grid">
+      <div>
+        <span class="eyebrow" style="background:rgba(16,185,129,.2);color:#6ee7b7">🚴 Become a Delivery Partner</span>
+        <h2>Earn on your own time, in your own neighborhood</h2>
+        <p>Join hundreds of locals who deliver for small businesses nearby. Flexible hours, fair pay, and you stay close to home.</p>
+        <div class="delivery-features">
+          <div class="df">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Set your own hours</span>
+          </div>
+          <div class="df">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Weekly payouts</span>
+          </div>
+          <div class="df">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Short local routes</span>
+          </div>
+          <div class="df">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <span>Support small businesses</span>
+          </div>
+        </div>
+        <button class="btn btn-primary" onclick="openAuth('delivery')">Apply as a Partner</button>
+      </div>
+      <div class="delivery-card">
+        <h3>What you can earn</h3>
+        <div class="earnings"><strong>$18–$26</strong><span>per hour, avg.</span></div>
+        <ul class="mini-list">
+          <li>Keep 100% of your tips</li>
+          <li>Choose deliveries within 3 km</li>
+          <li>Bonus pay during peak hours</li>
+          <li>Insurance coverage included</li>
+          <li>24/7 partner support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about" style="background:var(--bg-soft)">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">💚 Our Mission</span>
+      <h2>Rebuilding the local economy, one shop at a time</h2>
+      <p>nearBiz isn't a marketplace. We're not here to replace your neighborhood — we're here to bring it back. Every small business listed is a story, a family, a corner of your community worth supporting.</p>
+    </div>
+    <div class="how-grid" style="max-width:900px;margin:0 auto">
+      <div class="step" style="text-align:center">
+        <div class="step-num" style="margin:0 auto 16px">🏘️</div>
+        <h3>Community first</h3>
+        <p>We prioritize small, independent businesses — not chains or franchises.</p>
+      </div>
+      <div class="step" style="text-align:center">
+        <div class="step-num" style="margin:0 auto 16px">🤝</div>
+        <h3>Fair to everyone</h3>
+        <p>Low fees for businesses, fair pay for delivery partners, honest prices for customers.</p>
+      </div>
+      <div class="step" style="text-align:center">
+        <div class="step-num" style="margin:0 auto 16px">🌍</div>
+        <h3>Hyper-local</h3>
+        <p>Everything happens within a few kilometers. No warehouses, no distant shipping.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="logo" style="color:#fff">
+          <span class="logo-mark">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </span>
+          nearBiz
+        </div>
+        <p>Connecting customers with the small businesses that make neighborhoods feel like home.</p>
+        <div class="socials">
+          <a href="#" aria-label="Twitter"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Discover</h5>
+        <ul>
+          <li><a href="#explore">Explore businesses</a></li>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#about">About us</a></li>
+          <li><a href="#">Cities we serve</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Partner</h5>
+        <ul>
+          <li><a href="#owners">List your business</a></li>
+          <li><a href="#delivery">Become a delivery partner</a></li>
+          <li><a href="#">Business resources</a></li>
+          <li><a href="#">Success stories</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Support</h5>
+        <ul>
+          <li><a href="#">Help center</a></li>
+          <li><a href="#">Contact us</a></li>
+          <li><a href="#">Privacy policy</a></li>
+          <li><a href="#">Terms of service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 nearBiz. Made with 💚 for local communities.</span>
+      <span>Discover Local. Support Small.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ BUSINESS MODAL ============ -->
+<div class="modal-backdrop" id="bizModal" onclick="if(event.target===this)closeModal('bizModal')">
+  <div class="modal" id="bizModalContent"></div>
+</div>
+
+<!-- ============ AUTH MODAL ============ -->
+<div class="modal-backdrop" id="authModal" onclick="if(event.target===this)closeModal('authModal')">
+  <div class="modal auth-modal">
+    <button class="modal-close" onclick="closeModal('authModal')" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div style="text-align:center;margin-bottom:20px">
+      <div class="logo" style="justify-content:center;margin-bottom:10px">
+        <span class="logo-mark">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        nearBiz
+      </div>
+      <h3 id="authTitle">Welcome back</h3>
+      <p style="font-size:.9rem;color:var(--muted);margin-top:4px" id="authSubtitle">Log in to your account</p>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" data-mode="login" onclick="switchAuth('login')">Log in</button>
+      <button class="auth-tab" data-mode="signup" onclick="switchAuth('signup')">Sign up</button>
+    </div>
+    <form class="auth-form" onsubmit="handleAuth(event)">
+      <div class="field" id="nameField" style="display:none">
+        <label>Full name</label>
+        <input type="text" placeholder="Your name" />
+      </div>
+      <div class="field" id="roleField" style="display:none">
+        <label>I want to</label>
+        <select id="roleSelect">
+          <option value="customer">Shop from local businesses</option>
+          <option value="owner">List my business</option>
+          <option value="delivery">Become a delivery partner</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" placeholder="you@example.com" required />
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" placeholder="••••••••" required />
+      </div>
+      <button type="submit" class="btn btn-primary" id="authSubmit">Log in</button>
+    </form>
+    <div class="auth-divider">or</div>
+    <button class="btn btn-outline" style="width:100%" onclick="showToast('Social login coming soon!')">Continue with Google</button>
+    <div class="auth-switch" id="authSwitch">
+      New here? <a onclick="switchAuth('signup')">Create an account</a>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="toastMsg">Done!</span>
+</div>
+
+<script>
+/* ---------- Sample Data ---------- */
+const businesses = [
+  {id:1,name:"Sunrise Bakery",cat:"Food",desc:"Artisan sourdough, croissants and pastries baked fresh every morning by Maria and her family since 1998.",emoji:"🥐",bg:"linear-gradient(135deg,#f59e0b,#fbbf24)",rating:4.9,reviews:284,distance:"0.4 km",open:true,timing:"6:00 AM – 7:00 PM",phone:"+1 (555) 201-4432",address:"12 Maple Street, Downtown",
+    products:[
+      {name:"Sourdough Loaf",price:6.50,stock:12,emoji:"🍞",bg:"linear-gradient(135deg,#fbbf24,#f59e0b)"},
+      {name:"Butter Croissant",price:3.25,stock:24,emoji:"🥐",bg:"linear-gradient(135deg,#fde68a,#fbbf24)"},
+      {name:"Chocolate Éclair",price:4.00,stock:8,emoji:"🍫",bg:"linear-gradient(135deg,#92400e,#b45309)"},
+      {name:"Cinnamon Roll",price:4.50,stock:3,emoji:"🥨",bg:"linear-gradient(135deg,#d97706,#f59e0b)"}
+    ]},
+  {id:2,name:"Petal & Stem",cat:"Flowers",desc:"Seasonal bouquets, wedding flowers and plant gifts — hand-arranged by local florist Ana.",emoji:"🌷",bg:"linear-gradient(135deg,#ec4899,#f472b6)",rating:4.8,reviews:156,distance:"0.8 km",open:true,timing:"9:00 AM – 6:00 PM",phone:"+1 (555) 201-7788",address:"34 Oak Avenue",
+    products:[
+      {name:"Weekend Bouquet",price:28,stock:6,emoji:"💐",bg:"linear-gradient(135deg,#f472b6,#ec4899)"},
+      {name:"Rose Bunch (12)",price:22,stock:10,emoji:"🌹",bg:"linear-gradient(135deg,#dc2626,#ef4444)"},
+      {name:"Sunflower Bundle",price:18,stock:4,emoji:"🌻",bg:"linear-gradient(135deg,#facc15,#eab308)"},
+      {name:"Potted Succulent",price:12,stock:15,emoji:"🪴",bg:"linear-gradient(135deg,#10b981,#34d399)"}
+    ]},
+  {id:3,name:"Ravi's Hardware",cat:"Hardware",desc:"Family-run since 1972. Tools, paint, plumbing and everything you need for home projects.",emoji:"🔧",bg:"linear-gradient(135deg,#10b981,#34d399)",rating:4.7,reviews:412,distance:"1.2 km",open:true,timing:"7:30 AM – 8:00 PM",phone:"+1 (555) 201-3301",address:"89 Industrial Road",
+    products:[
+      {name:"Toolbox Set",price:42,stock:8,emoji:"🧰",bg:"linear-gradient(135deg,#475569,#64748b)"},
+      {name:"Paint (1L, White)",price:14,stock:22,emoji:"🎨",bg:"linear-gradient(135deg,#e2e8f0,#cbd5e1)"},
+      {name:"Garden Hose 15m",price:28,stock:5,emoji:"🌿",bg:"linear-gradient(135deg,#059669,#10b981)"},
+      {name:"LED Bulb Pack",price:9,stock:30,emoji:"💡",bg:"linear-gradient(135deg,#fde047,#facc15)"}
+    ]},
+  {id:4,name:"Bean & Brew Café",cat:"Cafe",desc:"Single-origin coffee, homemade cakes and a cozy corner to work or catch up with friends.",emoji:"☕",bg:"linear-gradient(135deg,#78350f,#92400e)",rating:4.9,reviews:523,distance:"0.3 km",open:true,timing:"7:00 AM – 9:00 PM",phone:"+1 (555) 201-5544",address:"5 River Lane",
+    products:[
+      {name:"Flat White",price:4.50,stock:99,emoji:"☕",bg:"linear-gradient(135deg,#92400e,#78350f)"},
+      {name:"Avocado Toast",price:8.00,stock:15,emoji:"🥑",bg:"linear-gradient(135deg,#65a30d,#84cc16)"},
+      {name:"Carrot Cake Slice",price:5.50,stock:7,emoji:"🍰",bg:"linear-gradient(135deg,#ea580c,#f97316)"},
+      {name:"Matcha Latte",price:5.00,stock:20,emoji:"🍵",bg:"linear-gradient(135deg,#16a34a,#22c55e)"}
+    ]},
+  {id:5,name:"Taylors of Elm Street",cat:"Fashion",desc:"Expert alterations, bespoke tailoring and dry cleaning. Three generations of craftsmanship.",emoji:"🧵",bg:"linear-gradient(135deg,#6366f1,#8b5cf6)",rating:4.8,reviews:198,distance:"1.5 km",open:false,timing:"10:00 AM – 6:00 PM",phone:"+1 (555) 201-2290",address:"22 Elm Street",
+    products:[
+      {name:"Suit Alteration",price:35,stock:99,emoji:"👔",bg:"linear-gradient(135deg,#4338ca,#6366f1)"},
+      {name:"Dress Hemming",price:18,stock:99,emoji:"👗",bg:"linear-gradient(135deg,#db2777,#ec4899)"},
+      {name:"Shirt Repair",price:12,stock:99,emoji:"👕",bg:"linear-gradient(135deg,#0ea5e9,#38bdf8)"},
+      {name:"Custom Suit Fitting",price:220,stock:5,emoji:"🤵",bg:"linear-gradient(135deg,#1e293b,#334155)"}
+    ]},
+  {id:6,name:"Chapter & Verse Books",cat:"Books",desc:"Independent bookshop with curated fiction, local authors and a weekend storytelling corner for kids.",emoji:"📚",bg:"linear-gradient(135deg,#0891b2,#06b6d4)",rating:4.9,reviews:341,distance:"0.9 km",open:true,timing:"10:00 AM – 8:00 PM",phone:"+1 (555) 201-8877",address:"11 Library Square",
+    products:[
+      {name:"Bestseller of the Month",price:16,stock:12,emoji:"📖",bg:"linear-gradient(135deg,#0e7490,#0891b2)"},
+      {name:"Children's Picture Book",price:10,stock:25,emoji:"🧸",bg:"linear-gradient(135deg,#f472b6,#ec4899)"},
+      {name:"Local Author Signed Copy",price:24,stock:4,emoji:"✍️",bg:"linear-gradient(135deg,#7c3aed,#8b5cf6)"},
+      {name:"Gift Card ($25)",price:25,stock:50,emoji:"🎁",bg:"linear-gradient(135deg,#f59e0b,#fbbf24)"}
+    ]},
+  {id:7,name:"Nonna's Pasta House",cat:"Food",desc:"Fresh handmade pasta, sauces and Italian groceries. Imported weekly from family in Emilia-Romagna.",emoji:"🍝",bg:"linear-gradient(135deg,#dc2626,#ef4444)",rating:4.8,reviews:267,distance:"1.1 km",open:true,timing:"11:00 AM – 9:00 PM",phone:"+1 (555) 201-6633",address:"78 Little Italy Blvd",
+    products:[
+      {name:"Fresh Tagliatelle (500g)",price:7,stock:18,emoji:"🍝",bg:"linear-gradient(135deg,#fbbf24,#f59e0b)"},
+      {name:"Tomato Basil Sauce",price:6,stock:24,emoji:"🍅",bg:"linear-gradient(135deg,#dc2626,#ef4444)"},
+      {name:"Parmigiano Wedge",price:12,stock:9,emoji:"🧀",bg:"linear-gradient(135deg,#fde047,#facc15)"},
+      {name:"Tiramisu (whole)",price:22,stock:4,emoji:"🍰",bg:"linear-gradient(135deg,#78350f,#92400e)"}
+    ]},
+  {id:8,name:"Green Thumb Garden Center",cat:"Hardware",desc:"Plants, seeds, soil and gardening advice from people who actually grow things in this climate.",emoji:"🌱",bg:"linear-gradient(135deg,#16a34a,#22c55e)",rating:4.7,reviews:189,distance:"1.8 km",open:true,timing:"8:00 AM – 6:00 PM",phone:"+1 (555) 201-4411",address:"156 Country Road",
+    products:[
+      {name:"Tomato Seedlings (6)",price:8,stock:30,emoji:"🍅",bg:"linear-gradient(135deg,#dc2626,#ef4444)"},
+      {name:"Potting Mix 20L",price:11,stock:18,emoji:"🌿",bg:"linear-gradient(135deg,#65a30d,#84cc16)"},
+      {name:"Terracotta Pot (Medium)",price:14,stock:12,emoji:"🪴",bg:"linear-gradient(135deg,#b45309,#d97706)"},
+      {name:"Herb Garden Kit",price:19,stock:8,emoji:"🌱",bg:"linear-gradient(135deg,#059669,#10b981)"}
+    ]}
+];
+
+/* ---------- Render Business Grid ---------- */
+const grid = document.getElementById('bizGrid');
+function renderBiz(filter='all',search=''){
+  const s = search.toLowerCase().trim();
+  const list = businesses.filter(b=>{
+    const catOk = filter==='all' || b.cat===filter;
+    const searchOk = !s || b.name.toLowerCase().includes(s) || b.desc.toLowerCase().includes(s) || b.cat.toLowerCase().includes(s) || b.products.some(p=>p.name.toLowerCase().includes(s));
+    return catOk && searchOk;
+  });
+  if(list.length===0){
+    grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--muted)">
+      <div style="font-size:3rem;margin-bottom:10px">🔍</div>
+      <h3 style="margin-bottom:6px">No businesses found</h3>
+      <p>Try a different search or category.</p></div>`;
+    return;
+  }
+  grid.innerHTML = list.map(b=>`
+    <article class="biz-card" onclick="openBiz(${b.id})" tabindex="0" role="button" aria-label="View ${b.name}">
+      <div class="biz-img" style="background:${b.bg}">
+        <span class="biz-badge ${b.open?'':'closed'}"><span class="dot"></span>${b.open?'Open now':'Closed'}</span>
+        <span style="position:relative;z-index:1;font-size:3.5rem">${b.emoji}</span>
+      </div>
+      <div class="biz-body">
+        <span class="biz-cat">${b.cat}</span>
+        <h3 class="biz-name">${b.name}</h3>
+        <p class="biz-desc">${b.desc}</p>
+        <div class="biz-meta">
+          <span class="rating">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            ${b.rating} <span style="color:var(--muted);font-weight:400">(${b.reviews})</span>
+          </span>
+          <span>📍 ${b.distance}</span>
+        </div>
+      </div>
+    </article>
+  `).join('');
+}
+renderBiz();
+
+/* ---------- Filter Chips ---------- */
+document.getElementById('filterBar').addEventListener('click',e=>{
+  if(!e.target.classList.contains('chip'))return;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  e.target.classList.add('active');
+  renderBiz(e.target.dataset.cat, document.getElementById('searchInput').value);
+  document.getElementById('explore').scrollIntoView({behavior:'smooth',block:'start'});
+});
+
+/* ---------- Search ---------- */
+function handleSearch(e){
+  e.preventDefault();
+  const v = document.getElementById('searchInput').value;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  document.querySelector('.chip[data-cat="all"]').classList.add('active');
+  renderBiz('all',v);
+  document.getElementById('explore').scrollIntoView({behavior:'smooth'});
+  if(v.trim()) showToast(`Showing results for "${v}"`);
+}
+
+/* ---------- Business Modal ---------- */
+function openBiz(id){
+  const b = businesses.find(x=>x.id===id);
+  if(!b) return;
+  const modal = document.getElementById('bizModalContent');
+  modal.innerHTML = `
+    <button class="modal-close" onclick="closeModal('bizModal')" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <div class="biz-hero" style="background:${b.bg}">
+      <span style="position:relative;z-index:1">${b.emoji}</span>
+      <div class="biz-hero-info">
+        <h2>${b.name}</h2>
+        <p>${b.cat} · ${b.distance} away · <span class="biz-badge ${b.open?'':'closed'}" style="display:inline-flex;position:static;background:rgba(255,255,255,.95)"><span class="dot"></span>${b.open?'Open now':'Closed'}</span></p>
+      </div>
+    </div>
+    <div class="biz-content">
+      <p style="margin-bottom:20px">${b.desc}</p>
+      <div class="biz-tabs">
+        <button class="biz-tab active" data-tab="products">Products</button>
+        <button class="biz-tab" data-tab="info">Info & Hours</button>
+        <button class="biz-tab" data-tab="order">Pre-order</button>
+      </div>
+      <div class="tab-panel" data-panel="products">
+        <div class="products">
+          ${b.products.map(p=>{
+            const stockClass = p.stock===0?'out':p.stock<=5?'low':'';
+            const stockText = p.stock===0?'Out of stock':p.stock<=5?`Only ${p.stock} left`:`${p.stock} in stock`;
+            return `
+            <div class="product">
+              <div class="product-img" style="background:${p.bg}">${p.emoji}</div>
+              <h4>${p.name}</h4>
+              <div class="price">$${p.price.toFixed(2)}</div>
+              <div class="stock ${stockClass}">${stockText}</div>
+              <button class="btn btn-primary" ${p.stock===0?'disabled style="opacity:.5;cursor:not-allowed"':''} onclick="addToOrder('${p.name.replace(/'/g,"\\'")}',${p.price},'${b.name.replace(/'/g,"\\'")}')">
+                ${p.stock===0?'Unavailable':'Pre-order'}
+              </button>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>
+      <div class="tab-panel" data-panel="info" style="display:none">
+        <div class="info-grid">
+          <div class="info-box"><h5>📍 Address</h5><p>${b.address}</p></div>
+          <div class="info-box"><h5>📞 Phone</h5><p>${b.phone}</p></div>
+          <div class="info-box"><h5>🕐 Hours</h5><p>${b.timing}</p><p>${b.open?'<span style="color:var(--primary-dark);font-weight:600">Open now</span>':'<span style="color:#ef4444;font-weight:600">Currently closed</span>'}</p></div>
+          <div class="info-box"><h5>🚚 Delivery</h5><p>Local delivery available within 3 km</p><p>Typically 30–60 min</p></div>
+        </div>
+      </div>
+      <div class="tab-panel" data-panel="order" style="display:none">
+        <div class="info-box" style="margin-bottom:16px">
+          <h5>🛒 Choose how to receive</h5>
+          <p>Select your preferred option when checking out.</p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <button class="btn btn-outline" style="padding:20px;flex-direction:column;text-align:center;height:auto" onclick="showToast('Pickup selected — complete your pre-order below')">
+            <span style="font-size:1.6rem;margin-bottom:6px">🏪</span>
+            <strong>Visit the store</strong>
+            <span style="font-size:.82rem;color:var(--muted);margin-top:4px">Pick up your pre-order</span>
+          </button>
+          <button class="btn btn-primary" style="padding:20px;flex-direction:column;text-align:center;height:auto" onclick="showToast('A local delivery partner will bring it to you!')">
+            <span style="font-size:1.6rem;margin-bottom:6px">🚴</span>
+            <strong>Local delivery</strong>
+            <span style="font-size:.82rem;opacity:.85;margin-top:4px">Delivered by a neighbor</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  `;
+  modal.querySelectorAll('.biz-tab').forEach(t=>t.addEventListener('click',()=>{
+    modal.querySelectorAll('.biz-tab').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    modal.querySelectorAll('.tab-panel').forEach(p=>p.style.display='none');
+    modal.querySelector(`.tab-panel[data-panel="${t.dataset.tab}"]`).style.display='block';
+  }));
+  document.getElementById('bizModal').classList.add('active');
+  document.body.style.overflow='hidden';
+}
+
+function addToOrder(name,price,biz){
+  showToast(`Added "${name}" ($${price.toFixed(2)}) from ${biz}`);
+}
+
+/* ---------- Modal helpers ---------- */
+function closeModal(id){
+  document.getElementById(id).classList.remove('active');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    document.querySelectorAll('.modal-backdrop.active').forEach(m=>{
+      m.classList.remove('active');
+    });
+    document.body.style.overflow='';
+  }
+});
+
+/* ---------- Auth Modal ---------- */
+function openAuth(mode){
+  document.getElementById('authModal').classList.add('active');
+  document.body.style.overflow='hidden';
+  switchAuth(mode);
+  if(mode==='owner'){
+    setTimeout(()=>{
+      document.getElementById('roleSelect').value='owner';
+    },50);
+  }else if(mode==='delivery'){
+    setTimeout(()=>{
+      document.getElementById('roleSelect').value='delivery';
+    },50);
+  }
+}
+function switchAuth(mode){
+  document.querySelectorAll('.auth-tab').forEach(t=>t.classList.toggle('active',t.dataset.mode===mode));
+  const isSignup = mode==='signup';
+  document.getElementById('nameField').style.display = isSignup?'block':'none';
+  document.getElementById('roleField').style.display = isSignup?'block':'none';
+  document.getElementById('authTitle').textContent = isSignup?'Create your account':'Welcome back';
+  document.getElementById('authSubtitle').textContent = isSignup?'Join nearBiz in 30 seconds':'Log in to your account';
+  document.getElementById('authSubmit').textContent = isSignup?'Create account':'Log in';
+  document.getElementById('authSwitch').innerHTML = isSignup
+    ? 'Already have an account? <a onclick="switchAuth(\'login\')">Log in</a>'
+    : 'New here? <a onclick="switchAuth(\'signup\')">Create an account</a>';
+}
+function handleAuth(e){
+  e.preventDefault();
+  closeModal('authModal');
+  showToast('Welcome to nearBiz! 🎉');
+}
+
+/* ---------- Toast ---------- */
+let toastTimer;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+/* ---------- Hamburger ---------- */
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click',()=>{
+  const open = navLinks.classList.toggle('open');
+  hamburger.setAttribute('aria-expanded',open);
+});
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  navLinks.classList.remove('open');
+  hamburger.setAttribute('aria-expanded','false');
+}));
+
+window.addEventListener('resize',()=>{
+  if(window.innerWidth>768){
+    navLinks.classList.remove('open');
+    hamburger.setAttribute('aria-expanded','false');
+  }
+});
+</script>
+</body>
+</html>
